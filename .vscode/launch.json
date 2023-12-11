@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "main",
+            "type": "python",
+            "request": "launch",
+            "module": "nixos_discord_bot",
+            "justMyCode": true
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+[project]
+name = "nixos-discord-bot"
+version = "v0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "discord.py"
+]
+
+[project.scripts]
+nixos-discord-bot = "nixos_discord_bot.__main__:main"
+
+[tool.pyright]
+# Decorated functions marked as unused
+reportUnusedFunction = false
