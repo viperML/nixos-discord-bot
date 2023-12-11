@@ -3,47 +3,65 @@ import os
 import logging
 
 import discord
-from discord import app_commands
-from discord.interactions import Interaction
+from discord.ext import commands
+from discord.ext.commands import Context
+from discord import Embed
 
 
 def main() -> int:
     intents = discord.Intents.default()
     intents.message_content = True
-    client = discord.Client(intents=intents)
-    command_tree = app_commands.CommandTree(client)
+
+    logger = logging.getLogger("bot")
+    info = logger.info
     discord.utils.setup_logging(level=logging.INFO, root=True)
 
-    logger = logging.getLogger("client")
-    info = logger.info
+    bot = commands.Bot(command_prefix="!", intents=intents)
 
-    @command_tree.command(name="move", description="Move a conversation")
-    async def move(
-        interaction: Interaction,
-        channel: discord.TextChannel,
-    ):
+    async def fail(ctx: Context, description: str):
+        info(f"Failed: {description}")
+        await ctx.send(
+            embed=Embed(
+                title="Error",
+                description=description
+            )
+        )
 
-        await interaction.response.defer()
-        message = await interaction.original_response()
+    @bot.command(help="Move a conversation to another channel")
+    async def move(ctx: Context):
+        if target_ref := ctx.message.reference:
+            if len(ctx.message.channel_mentions) == 1:
+                target_channel = ctx.message.channel_mentions[0]
+                target_message = await ctx.fetch_message(target_ref.message_id)
 
-        if ref := message.reference:
-            await interaction.followup.send("Moving message")
+                embed=Embed(
+                    description=f"""
+                        {target_message.content}
+
+                        Original message: {target_message.jump_url}
+                    """,
+                )
+                if avatar := target_message.author.avatar:
+                    embed.set_author(name=target_message.author.display_name, icon_url=avatar.url)
+                await target_channel.send(embed=embed)
+
+                await ctx.channel.send(embed=Embed(
+                    title="Moving conversation",
+                    description=f"Please continue in {target_channel.mention}"
+                ))
+            else:
+                await fail(ctx, "Please mention a channel to move the message to.")
         else:
-            await interaction.followup.send("Please reply to a message to move it")
+            await fail(ctx, "Pleas mention a message to move.")
 
-
-        pass
-
-    @client.event
+    @bot.event
     async def on_ready():
-        await command_tree.sync()
         info("Ready")
-
 
 
     token = os.environ["DISCORD_TOKEN"]
     info(f"Starting client (Token: {token})")
-    client.run(token)
+    bot.run(token)
 
     return 0
 
