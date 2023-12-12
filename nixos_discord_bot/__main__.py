@@ -16,7 +16,7 @@ def main() -> int:
     info = logger.info
     discord.utils.setup_logging(level=logging.INFO, root=True)
 
-    bot = commands.Bot(command_prefix="!", intents=intents)
+    bot = commands.Bot(command_prefix="$", intents=intents)
 
     async def fail(ctx: Context, description: str):
         info(f"Failed: {description}")
