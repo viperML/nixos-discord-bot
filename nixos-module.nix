@@ -31,6 +31,29 @@ in {
         ExecStart = lib.getExe cfg.package;
         DynamicUser = true;
         LoadCredential = "discord_token:${cfg.tokenFile}";
+
+        # hardening
+        CapabilityBoundingSet = "";
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        PrivateDevices = true;
+        PrivateUsers = true;
+        ProcSubset = "pid";
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectProc = "invisible";
+        RestrictAddressFamilies = ["AF_INET" "AF_INET6"];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = "@basic-io @file-system @network-io @system-service";
+        UMask = "0077";
+        DeviceAllow = "";
       };
     };
   };
