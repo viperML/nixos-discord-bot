@@ -59,8 +59,16 @@ def main() -> int:
         info("Ready")
 
 
-    token = os.environ["DISCORD_TOKEN"]
-    info(f"Starting client (Token: {token})")
+    if "DISCORD_TOKEN" in os.environ:
+        token = os.environ["DISCORD_TOKEN"]
+    elif "CREDENTIALS_DIRECTORY" in os.environ:
+        with open(f'{os.environ["CREDENTIALS_DIRECTORY"]}/discord_token', "r") as f:
+            token = f.readlines()[0].strip()
+    else:
+        logger.error("No token found in DISCORD_TOKEN or systemd credential discord_token")
+        sys.exit(1)
+
+    info(f"Starting client")
     bot.run(token)
 
     return 0
