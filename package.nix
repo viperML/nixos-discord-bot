@@ -29,4 +29,6 @@ buildPythonPackage {
   propagatedBuildInputs = [
     discordpy
   ];
+
+  meta.mainProgram = "nixos-discord-bot";
 }
