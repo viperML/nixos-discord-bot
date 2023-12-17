@@ -30,7 +30,7 @@ class Bot(commands.Bot):
         # Optional, used for debugging
         try:
             await self.load_extension("jishaku")
-        except ImportError:
+        except commands.ExtensionNotFound:
             pass
 
 

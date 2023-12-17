@@ -19,7 +19,7 @@ python = "^3.11"
 "discord.py" = "^2.3.2"
 
 [tool.poetry.scripts]
-start = "nixos_discord_bot:__main__"
+start = "nixos_discord_bot.__main__:run"
 
 [tool.poetry.group.dev.dependencies]
 poetry = "^1.7.1"

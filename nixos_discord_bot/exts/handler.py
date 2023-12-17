@@ -46,7 +46,7 @@ class EventHandler(commands.Cog):
 
 
         await ctx.send("\N{CHEERING MEGAPHONE} Something messed up, logged! \N{CHEERING MEGAPHONE}")
-        log.error(f"{ctx.command.name} messed up (author: {ctx.author.id})", exc_info=error) # type: ignore
+        log.error(f"{ctx.command.qualified_name} messed up (author: {ctx.author.id})", exc_info=error) # type: ignore
 
 
     @commands.Cog.listener()
