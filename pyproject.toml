@@ -1,14 +1,30 @@
 [project]
-name = "nixos-discord-bot"
+name = "nixos_discord_bot"
 version = "v0.1.0"
 requires-python = ">=3.11"
-dependencies = [
-    "discord.py"
-]
-
-[project.scripts]
-nixos-discord-bot = "nixos_discord_bot.__main__:main"
 
 [tool.pyright]
 # Decorated functions marked as unused
 reportUnusedFunction = false
+
+[tool.poetry]
+name = "nixos_discord_bot"
+version = "0.1.0"
+description = "official unofficial nixos discord bot:tm:"
+authors = [ "viperML" ]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+"discord.py" = "^2.3.2"
+
+[tool.poetry.scripts]
+start = "nixos_discord_bot:__main__"
+
+[tool.poetry.group.dev.dependencies]
+poetry = "^1.7.1"
+jishaku = "^2.5.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
