@@ -1,5 +1,4 @@
 {
-    "python.defaultInterpreterPath": "${workspaceFolder}/python",
     "files.exclude": {
         "*result*": true,
         ".direnv": true,
