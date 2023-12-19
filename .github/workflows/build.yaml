@@ -1,4 +1,4 @@
-name: Build
+name: CI
 
 on:
   pull_request:
@@ -6,9 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  main:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: ❄️ Install Nix
         uses: DeterminateSystems/nix-installer-action@main
@@ -18,3 +17,30 @@ jobs:
 
       - name: 🏗️ Build
         run: nix build github:$GITHUB_REPOSITORY/$GITHUB_SHA -L
+
+  tag:
+    needs: [main]
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📦 Checkout
+        uses: actions/checkout@v3
+
+      - name: ❄️ Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - run: |
+          echo -n "version=v" >> "$GITHUB_ENV"
+          nix shell nixpkgs#nushell -c \
+            nu -c "open pyproject.toml | get project | get version" \
+            >> "$GITHUB_ENV"
+        name: 🔃 Read version
+
+      - name: 🏷️ Tag if new version
+        run: |
+          set -x; set +e
+          git show-ref --tags $version --quiet
+
+          if [[ $? -ne 0 ]]; then
+            git tag $version
+            git push --tags
+          fi
