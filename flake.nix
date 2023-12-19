@@ -10,9 +10,6 @@
 
       perSystem = {pkgs, ...}: {
         packages = import ./default.nix {inherit pkgs;};
-        devShells.default = (pkgs.python3.withPackages(ps: with ps; [
-          discordpy
-        ])).env;
       };
 
       flake.nixosModules.default = import ./nixos-module.nix;
