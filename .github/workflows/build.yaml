@@ -20,6 +20,7 @@ jobs:
 
   tag:
     needs: [build]
+    if: github.event_name == 'push' && contains(github.ref, '/heads/master')
     runs-on: ubuntu-latest
     steps:
       - name: 📦 Checkout
