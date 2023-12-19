@@ -19,7 +19,7 @@ jobs:
         run: nix build github:$GITHUB_REPOSITORY/$GITHUB_SHA -L
 
   tag:
-    needs: [main]
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: 📦 Checkout
