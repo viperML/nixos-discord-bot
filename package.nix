@@ -4,9 +4,12 @@
   discordpy,
   setuptools-scm,
 }:
+let
+  pyproject = builtins.fromTOML (builtins.readFile ./pyproject.toml);
+in
 buildPythonPackage {
-  pname = "nixos-discord-bot";
-  version = "0.1.0";
+  pname = pyproject.project.name;
+  version = pyproject.project.version;
 
   pyproject = true;
   strictDeps = true;
