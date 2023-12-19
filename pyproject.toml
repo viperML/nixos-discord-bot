@@ -7,7 +7,7 @@ dependencies = [
 ]
 
 [project.scripts]
-nixos-discord-bot = "nixos_discord_bot.__main__:main"
+nixos-discord-bot = "nixos_discord_bot.__main__:run"
 
 [tool.pyright]
 # Decorated functions marked as unused

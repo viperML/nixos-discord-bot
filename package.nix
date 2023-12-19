@@ -22,9 +22,7 @@ buildPythonPackage {
       ]);
   };
 
-  nativeBuildInputs = [
-    setuptools-scm
-  ];
+  nativeBuildInputs = [ setuptools-scm ];
 
   propagatedBuildInputs = [
     discordpy
