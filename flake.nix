@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    noogle.url = "github:nix-community/noogle";
   };
 
   outputs = inputs @ {flake-parts, ...}:
