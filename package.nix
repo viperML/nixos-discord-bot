@@ -2,7 +2,7 @@
   buildPythonPackage,
   lib,
   discordpy,
-  setuptools-scm,
+  setuptools,
 }:
 let
   pyproject = builtins.fromTOML (builtins.readFile ./pyproject.toml);
@@ -25,9 +25,10 @@ buildPythonPackage {
       ]);
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
 
-  propagatedBuildInputs = [
+  build-system = [ setuptools ];
+
+  dependencies = [
     discordpy
   ];
 
