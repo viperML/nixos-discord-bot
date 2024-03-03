@@ -3,6 +3,7 @@
   lib,
   discordpy,
   setuptools,
+  noogle-data ? null
 }:
 let
   pyproject = builtins.fromTOML (builtins.readFile ./pyproject.toml);
@@ -25,6 +26,9 @@ buildPythonPackage {
       ]);
   };
 
+  # Provide the location of the built JSON dataset via environment variables
+  makeWrapperArgs = [ "--set" "NOOGLE_DATA" noogle-data ];
+  NOOGLE_DATA = noogle-data;
 
   build-system = [ setuptools ];
 

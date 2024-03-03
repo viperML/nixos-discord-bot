@@ -9,8 +9,11 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux" "aarch64-linux"];
 
-      perSystem = {pkgs, ...}: {
-        packages = import ./default.nix {inherit pkgs;};
+      perSystem = {pkgs, inputs', ...}: {
+        packages = import ./default.nix {
+            inherit pkgs;
+            noogle-data = inputs'.noogle.packages.data-json;
+        };
       };
 
       flake.nixosModules.default = import ./nixos-module.nix;
