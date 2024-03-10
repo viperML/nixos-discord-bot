@@ -1,8 +1,9 @@
 {
   buildPythonPackage,
   lib,
-  discordpy,
   setuptools-scm,
+  discordpy,
+  dataclasses-json,
 }:
 let
   pyproject = builtins.fromTOML (builtins.readFile ./pyproject.toml);
@@ -29,6 +30,7 @@ buildPythonPackage {
 
   propagatedBuildInputs = [
     discordpy
+    dataclasses-json
   ];
 
   meta.mainProgram = "nixos-discord-bot";
