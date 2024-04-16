@@ -1,3 +1,7 @@
+Notice March 2024: Development has moved to https://codeberg.org/adamcstephens/nixbot
+
+----
+
 Discord bot for the unofficial NixOS discord server.
 
 https://discord.gg/RbvHtGa
